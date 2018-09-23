@@ -1,14 +1,16 @@
 const path = require('path');
 const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const ExtractPlugin = require('extract-text-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 
 let config = {
+    target: 'web',
     entry: path.resolve(__dirname, 'src/index'),
     output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        filename: 'bundle.[hash:8].js',
+        path: path.join(__dirname, 'dist')
     },
     resolve: {
         extensions: ['.js', '.vue']
@@ -20,19 +22,8 @@ let config = {
                 loader: 'vue-loader'
             },
             {
-                test: /\.css$/,
-                use: [
-                    'style-loader',
-                    'css-loader'
-                ]
-            },
-            {
-                test: /\.styl$/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    'stylus-loader'
-                ]
+                test: /\.jsx$/,
+                loader: 'babel-loader'
             },
             {
                 test: /\.(jpg|jpeg|png|svg|gif)$/,
@@ -57,6 +48,20 @@ let config = {
 };
 
 if (isDev) {
+    config.module.rules.push({
+        test: /\.styl$/,
+        use: [
+            'style-loader',
+            'css-loader',
+            {
+                loader: 'postcss-loader',
+                options: {
+                    sourceMap: true // stylus-loader会生成sourceMap,这里使用stylus的即可，不需要自己生成，可节省时间
+                }
+            },
+            'stylus-loader'
+        ]
+    });
     config.devtool = '#cheap-module-eval-source-map';   // 映射出js未编译前的代码，source-map是完整映射，但是效率低下，文件过大
     config.devServer = {
         port: '9527',
@@ -70,6 +75,37 @@ if (isDev) {
     config.plugins.push(
         new webpack.HotModuleReplacementPlugin(),   //模块热替换
         new webpack.NoEmitOnErrorsPlugin()  // 在编译出现错误时，是可以跳过输出阶段，避免输出资源包含错误
+    )
+} else {
+    config.entry = {
+        app: path.join(__dirname, 'src/index.js'),
+        vendor: ['vue']
+    };
+    config.output.filename = '[name].[chunkhash:8].js'
+    config.module.rules.push({
+        test: /\.styl/,
+        use: ExtractPlugin.extract({
+            fallback: 'style-loader',
+            use: [
+                'css-loader',
+                {
+                    loader: 'postcss-loader',
+                    options: {
+                        sourceMap: true,
+                    }
+                },
+                'stylus-loader'
+            ]
+        })
+    })
+    config.plugins.push(
+        new ExtractPlugin('styles.[contentHash:8].css'),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor'       // 和entry的vendor对应，将指定的lib打包为一个文件
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'runtime'     // webpack的模块文件放在runtime中，好处是新添加的模块会添加在文件末尾，这样hash不会改变，能够长期缓存（待验证），vendor需要在runtime前面
+        })
     )
 }
 
