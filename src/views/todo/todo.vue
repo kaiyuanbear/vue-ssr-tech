@@ -25,7 +25,7 @@
 
 <script>
     import Item from './item'
-    import Tabs from  './tabs'
+    import Tabs from './tabs'
 
     let id = 0;
 

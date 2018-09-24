@@ -10,17 +10,15 @@
 </template>
 
 <script>
-    import Head from './todo/header'
-    import Foot from './todo/footer.jsx'
-    import Todo from './todo/todo'
-    import Item from './todo/item'
+    import Head from './layout/header'
+    import Foot from './layout/footer.jsx'
+    import Todo from './views/todo/todo'
 
     export default {
         components: {
             Head,
             Foot,
-            Todo,
-            Item
+            Todo
         },
         data() {
             return {
