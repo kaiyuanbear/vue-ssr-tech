@@ -27,48 +27,48 @@
     import Item from './item'
     import Tabs from './tabs'
 
-    let id = 0;
+    let id = 0
 
-    export default {
-        name: "todo",
-        components: {
-            Item,
-            Tabs
-        },
-        data() {
-            return {
-                placeholder: '输入点什么东西吧',
-                todoList: [],
-                filter: 'all'
-            }
-        },
-        computed: {
-            filteredTodoList() {
-                if (this.filter === 'all') {
-                    return this.todoList
-                }
-                return this.todoList.filter(item => this.filter === 'completed' ? item.completed : !item.completed)
-            }
-        },
-        methods: {
-            addTodo(ev) {
-                this.todoList.unshift({
-                    id: id++,
-                    content: ev.target.value.trim(),
-                    completed: false
-                });
-                ev.target.value = '';
-            },
-            deleteTodo(id) {
-                this.todoList.splice(this.todoList.findIndex(item => id === item.id), 1);
-            },
-            toggleFilter(state) {
-                this.filter = state;
-            },
-            clearAll() {
-                this.todoList = this.todoList.filter(item => !item.completed)
-            }
+export default {
+      name: 'todo',
+      components: {
+        Item,
+        Tabs
+      },
+      data () {
+        return {
+          placeholder: '输入点什么东西吧',
+          todoList: [],
+          filter: 'all'
         }
+      },
+      computed: {
+        filteredTodoList () {
+          if (this.filter === 'all') {
+            return this.todoList
+          }
+          return this.todoList.filter(item => this.filter === 'completed' ? item.completed : !item.completed)
+        }
+      },
+      methods: {
+        addTodo (ev) {
+          this.todoList.unshift({
+            id: id++,
+            content: ev.target.value.trim(),
+            completed: false
+          })
+          ev.target.value = ''
+        },
+        deleteTodo (id) {
+          this.todoList.splice(this.todoList.findIndex(item => id === item.id), 1)
+        },
+        toggleFilter (state) {
+          this.filter = state
+        },
+        clearAll () {
+          this.todoList = this.todoList.filter(item => !item.completed)
+        }
+      }
     }
 </script>
 

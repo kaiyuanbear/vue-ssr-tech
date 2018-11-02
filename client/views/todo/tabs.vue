@@ -18,35 +18,35 @@
 
 <script>
     export default {
-        name: "tabs",
-        data() {
-            return {
-                states: ['all', 'active', 'completed']
-            }
-        },
-        props: {
-            filter: {
-                type: String,
-                required: false
-            },
-            todoList: {
-                type: Array,
-                required: true
-            }
-        },
-        computed: {
-            unFinishedTodoLength() {
-                return this.todoList.filter(item => !item.completed).length
-            }
-        },
-        methods: {
-            toggleFilter(state) {
-                this.$emit('toggle', state)
-            },
-            clearAllCompleted() {
-                this.$emit('clearAllCompleted')
-            }
+      name: 'tabs',
+      data () {
+        return {
+          states: ['all', 'active', 'completed']
         }
+      },
+      props: {
+        filter: {
+          type: String,
+          required: false
+        },
+        todoList: {
+          type: Array,
+          required: true
+        }
+      },
+      computed: {
+        unFinishedTodoLength () {
+          return this.todoList.filter(item => !item.completed).length
+        }
+      },
+      methods: {
+        toggleFilter (state) {
+          this.$emit('toggle', state)
+        },
+        clearAllCompleted () {
+          this.$emit('clearAllCompleted')
+        }
+      }
     }
 </script>
 

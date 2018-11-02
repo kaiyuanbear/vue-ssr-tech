@@ -13,23 +13,23 @@
 
 <script>
     export default {
-        name: "item",
-        data() {
-            return {
+      name: 'item',
+      data () {
+        return {
 
-            }
-        },
-        methods: {
-            deleteTodo() {
-                this.$emit('del', this.todo.id)
-            }
-        },
-        props: {
-            todo: {
-                type: Object,
-                required: true
-            }
         }
+      },
+      methods: {
+        deleteTodo () {
+          this.$emit('del', this.todo.id)
+        }
+      },
+      props: {
+        todo: {
+          type: Object,
+          required: true
+        }
+      }
     }
 </script>
 

@@ -15,16 +15,16 @@
     import Todo from './views/todo/todo'
 
     export default {
-        components: {
-            Header,
-            Foot,
-            Todo
-        },
-        data() {
-            return {
-                text: '我要天天吃米线！！'
-            }
+      components: {
+        Header,
+        Foot,
+        Todo
+      },
+      data () {
+        return {
+          text: '我要天天吃米线！！'
         }
+      }
     }
 </script>
 

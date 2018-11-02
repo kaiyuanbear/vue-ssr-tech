@@ -24,6 +24,12 @@ let config = {
     module: {
         rules: [
             {
+                test: /\.(vue|js|jsx)$/,
+                loader: 'eslint-loader',
+                exclude: /node_modules/,
+                enforce: "pre"  // 在.(vue|js|jsx)对应的loader处理之前进行预处理
+            },
+            {
                 test: /\.vue$/,
                 loader: 'vue-loader',
                 options: createVueLoaderOptions(isDev)
