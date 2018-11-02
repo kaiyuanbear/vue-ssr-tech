@@ -7,14 +7,13 @@
  */
 
 const path = require('path');
-const webpack = require('webpack');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
+const createVueLoaderOptions = require('./vue-loader.config');
 
 const isDev = process.env.NODE_ENV === 'development';
 
 let config = {
     target: 'web',
-    entry: path.resolve(__dirname, '../src/index'),
+    entry: path.resolve(__dirname, '../client/index'),
     output: {
         filename: 'bundle.[hash:8].js',
         path: path.join(__dirname, '../dist')
@@ -26,7 +25,8 @@ let config = {
         rules: [
             {
                 test: /\.vue$/,
-                loader: 'vue-loader'
+                loader: 'vue-loader',
+                options: createVueLoaderOptions(isDev)
             },
             {
                 test: /\.jsx$/,
