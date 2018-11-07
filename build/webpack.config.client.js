@@ -12,7 +12,9 @@ const defaultPlugins = [
             NODE_ENV: isDev ? '"development"' : '"production"'  //必须加上双引号，否则传入的是变量，而不是字符串
         }
     }),
-    new HTMLWebpackPlugin() //  抽出HTML
+    new HTMLWebpackPlugin({
+      template: path.resolve(__dirname, 'template.html')
+    }) //  抽出HTML
 ];
 
 let config;
@@ -44,6 +46,10 @@ if (isDev) {
             overlay: {
                 errors: true    // 在页面显示错误
             },
+            historyApiFallback: {
+                index: '/public/index.html'
+            },
+            // historyApiFallback: true,
             open: true,  // 启动时在浏览器开新页面
             hot: true   // 模块热替换（只替换修改部分）
         },

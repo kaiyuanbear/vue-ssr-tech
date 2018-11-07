@@ -16,10 +16,15 @@ let config = {
     entry: path.resolve(__dirname, '../client/index'),
     output: {
         filename: 'bundle.[hash:8].js',
-        path: path.join(__dirname, '../dist')
+        path: path.join(__dirname, '../dist'),
+        publicPath: "/public"
     },
     resolve: {
-        extensions: ['.js', '.vue']
+        extensions: ['.js', '.vue'],
+        alias: {
+            'config': path.resolve(__dirname, '../client/config'),
+            'views': path.resolve(__dirname, '../client/views')
+        }
     },
     module: {
         rules: [

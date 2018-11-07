@@ -1,5 +1,5 @@
 <template>
-    <div :class="[$style.todoItem, todo.completed && 'completed']">
+    <div :class="['todo-item', todo.completed && 'completed']">
         <input
             type="checkbox"
             class="toggle"
@@ -33,7 +33,7 @@
     }
 </script>
 
-<style scoped lang="stylus" module>
+<style scoped lang="stylus">
     .todo-item{
         position relative
         background-color #fff

@@ -20,6 +20,7 @@
             @toggle="toggleFilter"
             @clearAllCompleted="clearAll"
         />
+        <router-view />
     </section>
 </template>
 
