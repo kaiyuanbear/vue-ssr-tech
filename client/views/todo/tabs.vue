@@ -19,6 +19,9 @@
 <script>
     export default {
       name: 'tabs',
+      metaInfo: {
+        title: '肥奶咪的应用'
+      },
       data () {
         return {
           states: ['all', 'active', 'completed']

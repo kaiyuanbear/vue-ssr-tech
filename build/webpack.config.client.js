@@ -4,6 +4,7 @@ const merge = require('webpack-merge');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const ExtractPlugin = require('extract-text-webpack-plugin');
 const baseConfig = require('./webpack.config.base');
+const VueClientPlugin = require('vue-server-renderer/client-plugin')
 
 const isDev = process.env.NODE_ENV === 'development';
 const defaultPlugins = [
@@ -14,7 +15,8 @@ const defaultPlugins = [
     }),
     new HTMLWebpackPlugin({
       template: path.resolve(__dirname, 'template.html')
-    }) //  抽出HTML
+    }), //  抽出HTML
+    new VueClientPlugin()
 ];
 
 let config;
@@ -41,7 +43,7 @@ if (isDev) {
             ]
         },
         devServer: {
-            port: '9527',
+            port: 9527,
             host: '0.0.0.0', //  这样的好处是可以通过localhost来访问，也可以通过内网IP来访问，如果设置成Localhost,别人的电脑不能通过IP来访问
             overlay: {
                 errors: true    // 在页面显示错误
@@ -61,11 +63,12 @@ if (isDev) {
 } else {
     config = merge(baseConfig, {
         entry: {
-            app: path.join(__dirname, '../client/index.js'),
-            vendor: ['vue']
+            app: path.join(__dirname, '../client/client-entry.js'),
+            vendor: ['vue'],
         },
         output:{
-            filename: '[name].[chunkhash:8].js'
+            filename: '[name].[chunkhash:8].js',
+            publicPath: '/public/'
         },
         module: {
             rules: [

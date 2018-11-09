@@ -1,4 +1,4 @@
-// import Todo from '../views/todo/todo.vue'
+import Todo from '../views/todo/todo.vue'
 // import Login from '../views/login/login.vue'
 
 export default [
@@ -9,7 +9,8 @@ export default [
   {
     // path: '/app/:id',
     path: '/app/:id',
-    component: () => import('../views/todo/todo.vue'),
+    component: Todo,
+    // component: () => import('../views/todo/todo.vue'),
     // components: {
     //   default: Todo,
     //   mi: Login

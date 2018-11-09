@@ -27,6 +27,9 @@
   import { mapState, mapGetters, mapActions, mapMutations } from 'Vuex'
 
   export default {
+    metaInfo: {
+      title: '橘橘的应用'
+    },
     components: {
       Header,
       Foot,

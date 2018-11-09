@@ -4,6 +4,9 @@
 
 <script>
     export default {
+      metaInfo: {
+        title: '登录'
+      },
       name: 'login'
     }
 </script>
